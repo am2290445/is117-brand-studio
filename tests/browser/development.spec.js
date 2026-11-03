@@ -37,17 +37,15 @@ test("development refreshes saved HTML, CSS, JavaScript and assets; plain previe
   };
   try {
     const initialConnection = connected(page);
-    await page.goto(`http://127.0.0.1:${development.address().port}`);
+    await page.goto(`http://127.0.0.1:${development.address().port}/shop.html`);
     await initialConnection;
-    await plain.goto(`http://127.0.0.1:${preview.address().port}`);
+    await plain.goto(`http://127.0.0.1:${preview.address().port}/shop.html`);
     const originalTitle = await plain.title();
     await page.locator('input[name="size"][value="M"]').check();
-    await page
-      .getByRole("button", { name: "Add to demo bag", exact: true })
-      .click();
+    await page.getByRole("button", { name: "Add to bag", exact: true }).click();
     await expect(page.locator("#bag-count")).toHaveText("1");
 
-    await save("index.html", (html) =>
+    await save("shop.html", (html) =>
       html.replace("</title>", " — saved HTML</title>"),
     );
     await expect(page).toHaveTitle(`${originalTitle} — saved HTML`);
@@ -75,6 +73,12 @@ test("development refreshes saved HTML, CSS, JavaScript and assets; plain previe
       "saved-js",
     );
 
+    await save("shop.html", (html) =>
+      html.replace(
+        'src="assets/elsewhere-story-portrait.png"',
+        'src="assets/white-shirt.svg"',
+      ),
+    );
     await save("assets/white-shirt.svg", (svg) =>
       svg.replace("<svg ", '<svg width="123" height="123" '),
     );

@@ -1,61 +1,113 @@
-"use strict";
+const productForm = document.querySelector("#product-form");
+const sizeError = document.querySelector("#size-error");
 
-(() => {
-  const form = document.querySelector("#product-form");
-  if (!form) return;
+const bagCount = document.querySelector("#bag-count");
+const bagStatus = document.querySelector("#bag-status");
+const bagItems = document.querySelector("#bag-items");
+const clearBagButton = document.querySelector("#clear-bag");
 
-  const sizeError = document.querySelector("#size-error");
-  const bagCount = document.querySelector("#bag-count");
-  const bagStatus = document.querySelector("#bag-status");
-  const bagItems = document.querySelector("#bag-items");
-  const clearBag = document.querySelector("#clear-bag");
-  const sizes = ["S", "M", "L", "XL"];
-  const bag = [];
+const shoppingBag = [];
+let nextItemId = 1;
 
-  const renderBag = () => {
-    bagCount.textContent = String(bag.length);
-    clearBag.disabled = bag.length === 0;
-    bagItems.replaceChildren();
-    sizes.forEach((size) => {
-      const quantity = bag.filter((item) => item === size).length;
-      if (!quantity) return;
-      const item = document.createElement("li");
-      item.textContent = `White T-shirt · Size ${size} · Quantity ${quantity}`;
-      bagItems.append(item);
-    });
+// Add a product to the shopping bag
+productForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const selectedSize = document.querySelector('input[name="size"]:checked');
+
+  if (!selectedSize) {
+    sizeError.hidden = false;
+    return;
+  }
+
+  sizeError.hidden = true;
+
+  const newItem = {
+    id: nextItemId,
+    name: "Elsewhere White T-shirt",
+    size: selectedSize.value,
+    price: 15,
   };
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const selected = form.querySelector('input[name="size"]:checked');
-    if (!selected || !sizes.includes(selected.value)) {
-      sizeError.hidden = false;
-      form.querySelectorAll('input[name="size"]').forEach((input) => {
-        input.setAttribute("aria-invalid", "true");
-      });
-      form.querySelector('input[name="size"]').focus();
-      return;
-    }
+  nextItemId++;
 
-    sizeError.hidden = true;
-    bag.push(selected.value);
-    renderBag();
-    const itemWord = bag.length === 1 ? "item" : "items";
-    bagStatus.textContent = `Added a white T-shirt in size ${selected.value}. Your demo bag has ${bag.length} ${itemWord}.`;
-  });
+  shoppingBag.push(newItem);
 
-  form.addEventListener("change", () => {
-    sizeError.hidden = true;
-    form.querySelectorAll('input[name="size"]').forEach((input) => {
-      input.removeAttribute("aria-invalid");
+  renderShoppingBag();
+
+  productForm.reset();
+});
+
+// Display the shopping bag
+function renderShoppingBag() {
+  bagItems.innerHTML = "";
+
+  shoppingBag.forEach(function (item) {
+    const listItem = document.createElement("li");
+    listItem.classList.add("bag-item");
+
+    const itemInformation = document.createElement("div");
+
+    const itemName = document.createElement("strong");
+    itemName.textContent = item.name;
+
+    const itemDetails = document.createElement("p");
+    itemDetails.textContent =
+      "Size: " + item.size + " | $" + item.price.toFixed(2);
+
+    itemInformation.appendChild(itemName);
+    itemInformation.appendChild(itemDetails);
+
+    // Create a button to remove only this item
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.textContent = "Remove";
+    removeButton.classList.add("text-button", "remove-item");
+
+    removeButton.addEventListener("click", function () {
+      removeItem(item.id);
     });
+
+    listItem.appendChild(itemInformation);
+    listItem.appendChild(removeButton);
+
+    bagItems.appendChild(listItem);
   });
 
-  clearBag.addEventListener("click", () => {
-    bag.length = 0;
-    renderBag();
+  // Update the number of items
+  bagCount.textContent = shoppingBag.length;
+
+  // Update the shopping bag message
+  if (shoppingBag.length === 0) {
     bagStatus.textContent =
-      "Your demo bag is empty. Choose a size to try it again.";
-    form.querySelector('input[name="size"]:checked')?.focus();
+      "Your shopping bag is empty. Find something that feels like you.";
+  } else {
+    bagStatus.textContent =
+      "You have " +
+      shoppingBag.length +
+      (shoppingBag.length === 1
+        ? " item in your shopping bag."
+        : " items in your shopping bag.");
+  }
+
+  // Enable or disable the clear bag button
+  clearBagButton.disabled = shoppingBag.length === 0;
+}
+
+// Remove one individual item
+function removeItem(itemId) {
+  const itemIndex = shoppingBag.findIndex(function (item) {
+    return item.id === itemId;
   });
-})();
+
+  if (itemIndex !== -1) {
+    shoppingBag.splice(itemIndex, 1);
+    renderShoppingBag();
+  }
+}
+
+// Clear the entire shopping bag
+clearBagButton.addEventListener("click", function () {
+  shoppingBag.length = 0;
+  renderShoppingBag();
+});

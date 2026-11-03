@@ -2,7 +2,7 @@
 
 **The same white T-shirt can carry very different meanings.** Develop a brand for it with an AI collaborator, then make those decisions visible in a professional website and a live style guide.
 
-This template starts with a working, deliberately neutral storefront. Your audience, name, promise, logo, voice, and visual direction are **not chosen yet**. You make the decisions; the agent helps you explore, build, check, and revise them.
+This project has an in-progress Elsewhere direction: Welcome, Shop, and Our Story are separate pages, and the white T-shirt demo bag remains available. Review current brand decisions and remaining evidence in [SPEC.md](SPEC.md). The agent helps you build, check, and revise the work; the learner's assumptions and observations are not customer research.
 
 **A short record, visible to you:** your AI coach updates [LEARNING.md](LEARNING.md) with brief task-related explanations, observations and help received. It is AI-drafted, not a full transcript, and may be public with your repository. Review it and correct or remove excerpts before they are committed or pushed. Your instructor uses it alongside the project with this [simple three-part rubric](docs/assessment.md); the AI does not assign your grade.
 
@@ -31,7 +31,7 @@ This template starts with a working, deliberately neutral storefront. Your audie
 
 Save an HTML, CSS, JavaScript, or asset file under `public/` to refresh the local browser automatically; unsaved edits do not appear. A refresh resets the temporary demo bag. `npm start` is an alias for this same development mode. Press **Ctrl+C** in the terminal running the server to stop it. To switch to a plain preview, stop the server first, then use `npm run preview` and reopen its printed address. Refresh the browser yourself after saving. These commands serve your local files; publishing to GitHub Pages is a later step.
 
-**First success checkpoint:** you can see the neutral white T-shirt page, choose a size, and add it to the demo bag. Tell the agent what you actually see. The bag is a demonstration; it does not take payments, persist between visits, or place orders.
+**First success checkpoint:** open the Elsewhere welcome page, visit Shop, choose a size, and add the white T-shirt to the demo bag. Tell the agent what you actually see. The bag is a demonstration; it does not take payments, persist between visits, or place orders.
 
 If a command fails, paste the real error into the same chat. If the port is in use, let the agent help you stop your earlier preview or use `PORT=5175 npm run dev`, then open its printed address. You can ask for a hint, an example, or a small recommendation at any time. You do not need to know the branding vocabulary first.
 
@@ -43,7 +43,7 @@ The agent follows **Try → Decide → Build → Check → Keep**. It asks one s
 
 You can adopt an AI suggestion. At the important choices, explain why it helps your visitor; “yes” alone does not show that connection. Ask for a hint if you are stuck.
 
-1. **Try the baseline.** Agree on the first feature, `BRAND-001`: first branded storefront and live style guide. Then have the agent open its issue and feature branch in **your repository**, before saving decisions or previews.
+1. **Try the baseline.** `BRAND-001` is already in progress on its feature branch; continue its existing issue and decisions in **your repository** rather than starting a duplicate feature.
 2. **Decide who and why.** Make two tiny audience/persona cards: a primary need to guide the page and one contrasting secondary need to check it. Then make an early brief: name, promise, one primary brand archetype, and three voice traits. These are hypotheses to revisit, not customer research. An archetype describes the brand's character, not a customer type.
 3. **Compare two small previews.** See a modernist and a postmodernist hero using the **same product, headline, supporting copy, and action**. Each cites real design references and explains its visual decisions. Choose or adjust a direction before building the whole page.
 4. **Build the chosen slice.** Develop an original SVG logo; a simple wordmark is enough. Show it at small size and in one color; the same SVG can serve each presentation if it works. Apply the selected identity to the storefront and live style guide, sharing CSS variables and assets. Plan two truthful, useful applications of Cialdini's persuasion principles; explain how one actual page element helps your visitor. Do not invent reviews, scarcity, credentials, or product facts.
@@ -54,15 +54,16 @@ You work at your own pace. There is no required class demonstration, quiz, separ
 
 ## What is here
 
-| File                                   | Purpose                                                                                                    |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `public/index.html`                    | Working storefront; the first branding feature is still pending                                            |
-| `public/styleguide.html`               | Live identity board using the storefront's shared styles and assets                                        |
-| `public/studio.html`                   | Short studio overview, also [available online](https://kaw393939.github.io/is117-brand-studio/studio.html) |
-| [SPEC.md](SPEC.md)                     | The concise record of your chosen decisions and evidence                                                   |
-| [AGENTS.md](AGENTS.md)                 | Instructions for your AI coach                                                                             |
-| [LEARNING.md](LEARNING.md)             | Brief AI-drafted conversation evidence for you to review; no full transcript or automatic grade            |
-| [docs/reference.md](docs/reference.md) | Short explanations and source links to use when needed                                                     |
+| File                                   | Purpose                                                                                         |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `public/index.html`                    | Elsewhere welcome and campaign page                                                             |
+| `public/shop.html`                     | Product page and temporary demo shopping bag                                                    |
+| `public/studio.html`                   | Elsewhere Our Story page                                                                        |
+| `public/styleguide.html`               | Live identity board using the site's shared styles and assets                                   |
+| [SPEC.md](SPEC.md)                     | The concise record of your chosen decisions and evidence                                        |
+| [AGENTS.md](AGENTS.md)                 | Instructions for your AI coach                                                                  |
+| [LEARNING.md](LEARNING.md)             | Brief AI-drafted conversation evidence for you to review; no full transcript or automatic grade |
+| [docs/reference.md](docs/reference.md) | Short explanations and source links to use when needed                                          |
 
 The README is the authoritative startup path. The online overview introduces the exercise; it does not replace your local project or chat.
 

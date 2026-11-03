@@ -1,14 +1,18 @@
-/* Shared brand tokens. Change these after you agree on your brand direction.
-   Both the storefront and the live style guide use this file. */
+/* Elsewhere — Sage, Forest & Plum Theme */
+
 :root {
-  --color-paper: #f6f5f0;
-  --color-ink: #171a18;
-  --color-muted: #5a615b;
-  --color-line: #d1d5cc;
-  --color-accent: #e3ef56;
-  --color-soft: #e8eae1;
+  --color-paper: #f6f3ef;
+  --color-ink: #252027;
+  --color-muted: #625d63;
+  --color-line: var(--color-soft);
+  --color-sage: #a9b9a0;
+  --color-accent: var(--color-sage);
+  --color-soft: #e5ded5;
   --color-white: #fff;
-  --color-danger: #992e28;
+  --color-danger: #a83232;
+  --color-forest: #343;
+  --color-plum: #684568;
+  --color-lavender: #d8c7db;
   --font-body:
     system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", sans-serif;
   --font-display:
@@ -54,7 +58,7 @@ input {
 }
 
 a {
-  color: inherit;
+  color: var(--color-forest);
   text-underline-offset: 0.2em;
   text-decoration-thickness: 1px;
 }
@@ -77,8 +81,8 @@ button:disabled {
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-ink);
-  outline-offset: 5px;
+  outline: 3px solid var(--color-forest);
+  outline-offset: 4px;
 }
 
 [hidden] {
@@ -160,7 +164,7 @@ p + p {
   width: 7px;
   height: 7px;
   display: inline-block;
-  background: var(--color-ink);
+  background: var(--color-accent);
   border-radius: 50%;
 }
 
@@ -172,7 +176,7 @@ p + p {
   transform: translateY(-180%);
   padding: 0.75rem 1rem;
   background: var(--color-ink);
-  color: var(--color-white);
+  color: var(--color-paper);
 }
 
 .skip-link:focus {
@@ -186,12 +190,14 @@ p + p {
   gap: 1.5rem;
   padding: 0.8rem 3rem;
   background: var(--color-accent);
+  color: var(--color-ink);
   font-size: 0.73rem;
   line-height: 1.5;
 }
 
 .starter-notice a {
   flex-shrink: 0;
+  color: var(--color-ink);
   font-weight: 650;
 }
 
@@ -249,7 +255,7 @@ p + p {
   place-items: center;
   min-width: 1.7rem;
   height: 1.7rem;
-  border: 1px solid var(--color-ink);
+  border: 1px solid var(--color-accent);
   border-radius: 50%;
   font-size: 0.7rem;
 }
@@ -264,7 +270,7 @@ p + p {
 
 .product-visual {
   position: relative;
-  background: var(--color-soft);
+  background: var(--color-sage);
 }
 
 .visual-label {
@@ -278,9 +284,10 @@ p + p {
 }
 
 .shirt-image {
+  display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 800 / 880;
+  aspect-ratio: 4 / 5;
   object-fit: contain;
 }
 
@@ -397,6 +404,7 @@ legend {
   min-height: 3.2rem;
   border: 1px solid var(--color-line);
   background: var(--color-paper);
+  color: var(--color-ink);
   font-size: 0.83rem;
   transition:
     background 150ms ease,
@@ -404,17 +412,17 @@ legend {
 }
 
 .size-option input:checked + span {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
 }
 
 .size-option input:hover + span {
-  border-color: var(--color-ink);
+  border-color: var(--color-forest);
 }
 
 .size-option input:focus-visible + span {
-  outline: 3px solid var(--color-ink);
+  outline: 3px solid var(--color-forest);
   outline-offset: 4px;
 }
 
@@ -452,13 +460,15 @@ legend {
 }
 
 .button-primary {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-sage);
+  border-color: var(--color-sage);
+  color: var(--color-ink);
 }
 
 .button-primary:hover {
-  background: var(--color-accent);
-  color: var(--color-ink);
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
 }
 
 .button-secondary {
@@ -507,6 +517,65 @@ legend {
   text-align: right;
 }
 
+.style-prompts {
+  border-top: 1px solid var(--color-line);
+  padding-block: 3rem 3.5rem;
+}
+
+.style-prompts-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 1rem 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.style-prompts-heading h2 {
+  margin-block: 0.3rem 0;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+}
+
+.style-prompts-heading > p {
+  max-width: 32rem;
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.style-prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.style-prompt {
+  min-height: 9rem;
+  padding: 1.25rem;
+  border-top: 4px solid var(--color-sage);
+  background: var(--color-soft);
+}
+
+.style-prompt:nth-child(2) {
+  border-color: var(--color-forest);
+}
+
+.style-prompt:nth-child(3) {
+  border-color: var(--color-plum);
+}
+
+.style-prompt h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1.2rem;
+}
+
+.style-prompt p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.83rem;
+}
+
 .bag-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -549,7 +618,7 @@ legend {
   padding: 0.5rem 0;
   border: 0;
   background: transparent;
-  color: var(--color-ink);
+  color: var(--color-forest);
   font-size: 0.8rem;
   text-decoration: underline;
   text-underline-offset: 0.25rem;
@@ -569,6 +638,7 @@ legend {
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem 3rem;
   background: var(--color-accent);
+  color: var(--color-ink);
   padding: 2.7rem 3rem 3rem;
   margin-block: 1rem 4rem;
 }
@@ -607,10 +677,11 @@ legend {
 }
 
 .site-footer a {
-  color: var(--color-ink);
+  color: var(--color-forest);
 }
 
 /* Shared editorial pages */
+
 .page-hero {
   padding-block: 4.5rem 3.8rem;
   display: grid;
@@ -769,7 +840,6 @@ legend {
 
 .logo-mono {
   width: 190px;
-  filter: brightness(0);
 }
 
 .logo-variant p,
@@ -1089,6 +1159,19 @@ legend {
 
   .product-facts {
     margin-top: 1.5rem;
+  }
+
+  .style-prompts {
+    padding-block: 2rem 2.5rem;
+  }
+
+  .style-prompts-heading {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .style-prompt-grid {
+    grid-template-columns: 1fr;
   }
 
   .bag-section {
