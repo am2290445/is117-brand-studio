@@ -1,24 +1,34 @@
-# Conversation evidence
+# Learning record
 
-AI-drafted task evidence, not a transcript or grade. This file may be public: review, correct or remove excerpts before commit/push. Use short actual quotes or labeled paraphrases and disclose help. Approval alone is not an explanation; leave missing evidence pending.
+AI-drafted task evidence, not a transcript or grade. This file may be public;
+review, correct, or remove excerpts before commit or push.
 
-- **Feature:** BRAND-001 — pending
-- **Date:** Pending
-- **Conversation context available:** Not recorded yet
-- **Review status:** Not reviewed; no learner evidence recorded
+- **Feature:** BRAND-001 — in progress
+- **Date:** 2026-11-03
+- **Conversation context available:** Current chat. The learner reported a Shop
+  first impression; keyboard and mobile observations remain pending.
+- **Review status:** Learner confirmed a previously shown summary on Nov 3.
+  The test explanation and browser-impression entries below were added
+  afterward and still need review.
 
-## Student contributions
+## Current evidence
 
-| Checkpoint                                   | Actual student words or labeled paraphrase | Assistance supplied | Evidence or gap |
-| -------------------------------------------- | ------------------------------------------ | ------------------- | --------------- |
-| Choice and reason                            | Pending                                    | Pending             | Pending         |
-| Prediction or visitor benefit                | Pending                                    | Pending             | Pending         |
-| Interpretation of one actual test            | Pending                                    | Pending             | Pending         |
-| Browser observation and keep/revise decision | Pending                                    | Pending             | Pending         |
+| Checkpoint          | Learner contribution                                                                                                                                                                                                                                                                                                                                                     | Assistance and evidence                                                                                                                                                                                                                                          |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Brand and audience  | Supplied the original brand brief, later chose Elsewhere and separate Welcome, Shop, and Our Story pages. Revised audience wording: “Elsewhere is a brand where a simple white T-shirt can still feel personal and chic.” Suggested a contrasting audience: people who want simple, versatile clothing that is easy to wear and style.                                   | AI implemented the pages and branding. AI offered examples while prompting for the primary need and visual choice; those answers are assisted. Both audiences remain unvalidated hypotheses in [SPEC.md](./SPEC.md).                                             |
+| Visual rationale    | “The soft Sage green gives the site a calm, stylish look, while the darker Forest green adds contrast and makes the design feel more polished.” Later explanation (Nov 3): “It brings the idea that it is beyond something simple. It gives the relaxing idea that they can also make something simple and white have color without actually adding color to the shirt.” | AI asked how Sage and Forest might help the audience; no example was supplied in that prompt. This later explanation connects the palette to expressive presentation.                                                                                            |
+| Persuasion idea     | Said styling inspiration can help the basic shirt feel more personal without requiring an extra purchase, and chose mix-and-match prompts.                                                                                                                                                                                                                               | AI proposed styling inspiration and drafted the three prompt texts in [shop.html](./public/shop.html). The exact copy has not been reviewed by the learner. One principle, reciprocity, is recorded in SPEC; a second application remains undecided.             |
+| Test explanation    | First answered “virus or hacker,” then said shoppers can select and delete items from the bag. Later explained that a browser test checks whether a visitor can select a T-shirt size, add it to the bag, and see the bag update correctly.                                                                                                                              | AI clarified test scope and offered hints. The final explanation refers to the add-to-bag test, not the separate styling-prompt test, and is assisted. The suite passed: `npm run check` reports formatting/lint, 7 server tests, and 16 Chromium browser tests. |
+| Browser observation | Reported noticing the photo and “how it shows a stylish way to accessorize white shirt.”                                                                                                                                                                                                                                                                                 | AI asked for a Shop first impression. This is the learner's report; no keyboard or narrow/mobile observation or keep/revise reason has been recorded.                                                                                                            |
 
-## AI work and evidence links
+## Work and next step
 
-- **Work performed by AI:** Pending
-- **SPEC, issue/PR, actual checks and artifacts:** Pending
+AI reused the learner-selected, permission-approved portrait on Shop. The Shop
+image, optional styling prompts, and related browser checks are in
+[shop.html](./public/shop.html) and [studio.spec.js](./tests/browser/studio.spec.js).
+See [SPEC.md](./SPEC.md) for brand decisions, remaining requirements, issues,
+and evidence.
 
-**Next step:** Pending
+**Next step:** Review the entries added after the earlier summary, then report a
+keyboard and narrow/mobile observation. Keep missing reasoning and observations
+pending; do not treat automated checks as personal browser evidence.
