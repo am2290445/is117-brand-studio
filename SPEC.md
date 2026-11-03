@@ -6,10 +6,10 @@ This is the durable agreement between the learner and agent. Keep it concise and
 
 ## Current stage
 
-- Stage: Elsewhere direction supplied; learner's Shop first impression reported; keyboard and mobile observations pending.
+- Stage: Elsewhere direction supplied; learner's Shop first impression, keyboard navigation, and mobile observations reported.
 - Current feature: `BRAND-001` — first branded storefront and live style guide.
 - Status: In progress on `feature/brand-001-elsewhere`.
-- Next small decision: Check keyboard navigation, then inspect a narrow/mobile view.
+- Next small decision: Review the wordmark at actual use size.
 
 ## Product boundary
 
@@ -68,9 +68,10 @@ Choose two applications that help the visitor make a voluntary, informed decisio
 
 ## BRAND-001 — first branded storefront and live style guide
 
-**Scope:** update the existing storefront and live style guide for the supplied Elsewhere identity. Keep Welcome, Shop, and Our Story as separate pages with Elsewhere, Shop, Our Story navigation. Preserve the $15 white T-shirt and demo bag behavior; do not add checkout.
+**Scope:** Update the existing storefront and live style guide for the supplied Elsewhere identity. Keep Welcome, Shop, and Our Story as separate pages with Elsewhere, Shop, Our Story navigation. Preserve the $15 white T-shirt and demo bag behavior; do not add checkout.
 
 **Tracking:** [BRAND-002–BRAND-006](#assignment-follow-up-issues)
+
 **Branch:** `feature/brand-001-elsewhere`
 
 ## Assignment follow-up issues
@@ -99,9 +100,9 @@ Keep when:
 
 Write a short result and link only evidence that exists. A passing browser check is evidence for its assertions, not customer research or proof of full accessibility.
 
-| Spec ID   | Files                                                                                                                                         | Issue / PR                                          | Actual checks and observations                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| --------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| BRAND-001 | `public/index.html`, `public/shop.html`, `public/studio.html`, `public/styleguide.html`, `public/studio.css`, Elsewhere assets, browser tests | [BRAND-002–BRAND-006](#assignment-follow-up-issues) | `npm run check` passed: formatting/lint, 7 server tests, and 16 Chromium browser tests, including Shop photo loading and undistorted 4:5 sizing, optional styling prompts, page navigation, shopping behavior, accessibility, and mobile overflow. After hints, learner explained the add-to-bag test checks size selection, adding the shirt, and bag updates; this explanation does not cover the separate styling-prompt test. Learner reports the Shop photo gives a stylish accessorizing impression; keyboard and mobile observations remain pending. |
+| Spec ID   | Files                                                                                                                                         | Issue / PR                                          | Actual checks and observations                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| BRAND-001 | `public/index.html`, `public/shop.html`, `public/studio.html`, `public/styleguide.html`, `public/studio.css`, Elsewhere assets, browser tests | [BRAND-002–BRAND-006](#assignment-follow-up-issues) | `npm run check` passed: formatting/lint, 7 server tests, and 16 Chromium browser tests, including Shop photo loading and undistorted 4:5 sizing, optional styling prompts, page navigation, shopping behavior, accessibility, and mobile overflow. After hints, learner explained the add-to-bag test checks size selection, adding the shirt, and bag updates; this explanation does not cover the separate styling-prompt test. Learner reports the Shop photo gives a stylish accessorizing impression. Keyboard observation: learner could reach the size options, change size using arrow keys, reach Add to Bag, add the shirt using Enter, and reach the bag controls. Mobile observation: at iPhone SE size, fundamental Shop features worked; learner reported no sideways scrolling, overlapping, unusually small text, or difficult-to-use elements. These observations do not establish full accessibility or customer research. |
 
 ## Later
 
