@@ -271,6 +271,7 @@ p + p {
 .product-visual {
   position: relative;
   background: var(--color-sage);
+  box-shadow: 0.7rem 0.7rem 0 var(--color-soft);
 }
 
 .visual-label {
@@ -287,7 +288,7 @@ p + p {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: auto;
   object-fit: contain;
 }
 
@@ -559,10 +560,12 @@ legend {
 
 .style-prompt:nth-child(2) {
   border-color: var(--color-forest);
+  transform: translateY(0.5rem) rotate(0.5deg);
 }
 
 .style-prompt:nth-child(3) {
-  border-color: var(--color-plum);
+  border-color: var(--color-lavender);
+  transform: rotate(-0.5deg);
 }
 
 .style-prompt h3 {
@@ -1135,7 +1138,7 @@ legend {
   }
 
   .shirt-image {
-    max-height: 530px;
+    max-height: none;
   }
 
   .product-information {
@@ -1172,6 +1175,11 @@ legend {
 
   .style-prompt-grid {
     grid-template-columns: 1fr;
+  }
+
+  .style-prompt:nth-child(2),
+  .style-prompt:nth-child(3) {
+    transform: none;
   }
 
   .bag-section {

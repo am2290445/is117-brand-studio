@@ -75,7 +75,7 @@ test("development refreshes saved HTML, CSS, JavaScript and assets; plain previe
 
     await save("shop.html", (html) =>
       html.replace(
-        'src="assets/elsewhere-story-portrait.png"',
+        'src="assets/elsewhere-shirt-hanger.png"',
         'src="assets/white-shirt.svg"',
       ),
     );

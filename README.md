@@ -1,73 +1,158 @@
-# IS117 Brand Studio — Elsewhere
+# Elsewhere
 
-**The same white T-shirt can carry very different meanings.** Elsewhere explores how a simple clothing staple can become a way to express individuality, creativity, and personal style.
+Elsewhere is an everyday fashion brand built around the idea that simplicity can make a statement. It shows how simple clothing can be styled into something chic, allowing people to express their individuality without needing complicated or excessive designs.
 
-**Brand name:** Elsewhere  
-**Slogan:** Less ordinary. More you.
+The brand encourages people to see the potential in everyday pieces and make them their own.
 
-This project develops a brand for a white T-shirt with an AI collaborator, then makes the brand decisions visible through a professional website and a live style guide.
+## Brand Identity
 
-Elsewhere's brand direction is based on the **Sage** archetype, supported by the **Creator** archetype, with **Postmodernism** as its visual direction. Its voice is **creative, playful, and rebellious**.
+- **Brand name:** Elsewhere
+- **Slogan:** Less ordinary. More you.
+- **Primary archetype:** Sage
+- **Supporting archetype:** Creator
+- **Brand promise:** Express your individuality through everyday clothing while thinking more carefully about your choices.
+- **Visual direction:** Postmodernism
+- **Primary audience:** Young creatives who use fashion to show their personality.
+- **Secondary audience:** People who value simplicity in clothing.
+- **Brand voice:** Creative, playful, and rebellious.
 
-Review the current decisions, research, and remaining evidence in [SPEC.md](SPEC.md).
+## Website Pages
 
-**A short learning record:** [LEARNING.md](LEARNING.md) contains brief, AI-drafted explanations, observations, and help received during the project. It is not a full conversation transcript. Review it for accuracy and remove or correct anything that does not represent your actual experience before committing or pushing it. Your instructor uses it alongside the project and the [three-part assessment rubric](docs/assessment.md). The AI does not assign your grade.
+The Elsewhere website includes four main pages:
 
-## About Elsewhere
+- **Welcome:** Introduces the brand, slogan, and Modernist and Postmodernist design directions.
+- **Shop:** Displays the white T-shirt, product information, size selection, and temporary shopping bag.
+- **Our Story:** Explains the brand's purpose, message, and identity.
+- **Style Guide:** Presents the brand's logo, colors, typography, and visual direction.
 
-Elsewhere is built around the idea that **simple clothing does not have to mean simple personal style**.
+## Features
 
-The brand uses a white T-shirt as a starting point: a versatile everyday item that gives people room to express themselves through how they style, interpret, and wear it.
+- White T-shirt product display.
+- Displayed product price of $15.
+- Size selection (S, M, L, XL).
+- Add items to a temporary shopping bag.
+- Remove individual items from the bag.
+- Clear the shopping bag.
+- Optional styling suggestions.
+- Modernist and Postmodernist design explorations on the Welcome page.
+- Shared brand colors, typography, and visual styling.
+- Responsive layouts for smaller screens.
+- Keyboard-accessible navigation and shopping controls.
 
-The goal is to show that simplicity can still make a statement.
+## Brand Colors
 
-## Brand identity
+The visual identity uses a combination of:
 
-| Brand element | Elsewhere decision |
-| --- | --- |
-| **Brand name** | Elsewhere |
-| **Slogan** | Less ordinary. More you. |
-| **Primary audience** | Young creatives who use fashion to show their personality |
-| **Secondary audience** | People who value simple, versatile clothing |
-| **Primary archetype** | Sage |
-| **Supporting archetype** | Creator |
-| **Visual direction** | Postmodernism |
-| **Brand voice** | Creative, playful, and rebellious |
-| **Product** | Elsewhere White T-shirt |
-| **Concept price** | $15 |
+- Forest green
+- Sage
+- Plum
+- Lavender
+- Warm off-white
 
-### Brand promise
+These colors support the Sage and Creator archetypes by combining a thoughtful, sophisticated appearance with creative expression.
 
-Elsewhere encourages people to express their individuality through everyday clothing and to see simplicity as an opportunity for personal creativity.
+## Persuasion and Visitor Experience
 
-### Brand positioning
+The website includes optional styling suggestions that encourage visitors to explore different ways to style an everyday white T-shirt using clothing they already own.
 
-Elsewhere is for people who want simple clothing without feeling that their personal style has to be simple.
+The suggestions are intended to provide useful ideas without requiring another purchase or signup.
 
-### Archetypes
+## Shopping Bag Limitations
 
-- **Sage:** Influences the brand's focus on ideas, meaning, and thought-provoking messages.
-- **Creator:** Supports originality, experimentation, and artistic freedom.
+The shopping bag is a demonstration feature only.
 
-Together, these archetypes communicate that fashion can be both simple and expressive.
+The website does not:
 
-### Visual direction
+- Process payments.
+- Place real orders.
+- Create customer accounts.
+- Permanently save shopping bag contents.
 
-**Postmodernism** is the primary visual direction. It supports creative expression, unconventional design choices, and visual experimentation.
+## Technologies
 
-The white T-shirt provides a simple canvas, while the surrounding brand identity introduces personality through color, typography, layout, and imagery.
+- HTML
+- CSS
+- JavaScript
+- Node.js
+- npm
+- Playwright
+- Chromium browser testing
+- Automated server tests
+- Prettier
+- ESLint
+- HTML-Validate
+- Stylelint
 
-### Color palette
+## Getting Started
 
-| Color | Hex code | Purpose |
-| --- | --- | --- |
-| Paper | `#F6F3EF` | Main background |
-| Ink | `#252027` | Primary text |
-| Forest | `#334433` | Contrast and emphasis |
-| Plum | `#684568` | Creative accent |
-| Sage | `#A9B9A0` | Soft supporting color |
-| Lavender | `#D8C7DB` | Expressive accent |
-| Soft | `#E5DED5` | Secondary background |
-| Muted | `#625D63` | Supporting text |
+### Requirements
 
-The neutral colors keep the presentation clean, while the accent
+- Node.js 22.16+ on the 22 LTS line, or Node.js 24+.
+- npm.
+
+### 1. Install Dependencies
+
+Open the project folder in VS Code.
+
+Open the terminal by selecting **Terminal → New Terminal**.
+
+Run:
+
+```powershell
+npm ci
+```
+
+### 2. Start the Website
+
+Run:
+
+```powershell
+npm run dev
+```
+
+Open the local website in your browser:
+
+http://127.0.0.1:5173/
+
+Keep the terminal running while viewing the website.
+
+### 3. Run Project Checks
+
+Run:
+
+```powershell
+npm run check
+```
+
+This command checks:
+
+- Code formatting.
+- JavaScript, HTML, and CSS quality.
+- Server functionality.
+- Browser functionality using Playwright.
+- Automated accessibility checks using axe.
+
+### Latest Test Results
+
+The latest reported automated check completed successfully:
+
+- **7 server tests passed.**
+- **17 Chromium browser tests passed.**
+- **24 total tests passed.**
+- Formatting and lint checks passed.
+
+These checks help identify technical problems but do not replace reviewing the website in a browser.
+
+## Project Documentation
+
+- **[SPEC.md](SPEC.md):** Records the brand decisions, project requirements, design direction, and implementation evidence.
+- **[LEARNING.md](LEARNING.md):** Records the AI-assisted learning process, decisions, testing observations, and project progress.
+- **[AGENTS.md](AGENTS.md):** Provides instructions for the AI collaborator.
+
+## Project Status
+
+The Elsewhere website includes its four main pages, brand identity, product display, temporary shopping bag, styling suggestions, and Modernist and Postmodernist design explorations.
+
+The project has passed its latest reported formatting, lint, server, and browser checks.
+
+The final GitHub review, pull request, and publishing steps should be completed according to the assignment instructions.

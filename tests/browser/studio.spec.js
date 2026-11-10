@@ -17,27 +17,27 @@ test("positive: a shopper can choose sizes, add items, and empty the demo bag", 
   await page.goto("/shop.html");
   await expect(page.locator(".shirt-image")).toHaveAttribute(
     "src",
-    "assets/elsewhere-story-portrait.png",
+    "assets/elsewhere-shirt-hanger.png",
   );
   await expect(page.locator(".shirt-image")).toHaveAttribute(
     "alt",
-    /model wearing a relaxed white T-shirt/i,
+    /white T-shirt hanging from a metal hanger/i,
   );
   await expect(page.locator(".shirt-image")).toHaveCSS("object-fit", "contain");
   await expect(page.locator(".shirt-image")).toHaveJSProperty(
     "naturalWidth",
-    768,
+    347,
   );
   await expect(page.locator(".shirt-image")).toHaveJSProperty(
     "naturalHeight",
-    960,
+    420,
   );
   expect(
     await page.locator(".shirt-image").evaluate((image) => {
       const { width, height } = image.getBoundingClientRect();
       return width / height;
     }),
-  ).toBeCloseTo(0.8, 2);
+  ).toBeCloseTo(347 / 420, 2);
   await expect(page.locator(".price")).toContainText("$15");
   await page.locator('input[name="size"][value="M"]').check();
   await page.getByRole("button", { name: "Add to bag", exact: true }).click();
@@ -90,6 +90,16 @@ test("Shop offers optional styling prompts using clothes visitors already own", 
   await expect(prompts.nth(1)).toContainText("Add a layer");
   await expect(prompts.nth(2)).toContainText("Bring your own color");
   await expect(page.locator("#bag-count")).toHaveText("0");
+  expect(
+    await page.evaluate(() =>
+      Boolean(
+        document
+          .querySelector("#demo-bag")
+          .compareDocumentPosition(document.querySelector(".style-prompts")) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+      ),
+    ),
+  ).toBe(true);
 });
 
 test("keyboard: the skip link reaches main and the size controls work without a mouse", async ({
@@ -142,7 +152,10 @@ test("homepage keeps the welcome separate from shopping and Our Story", async ({
     "object-fit",
     "contain",
   );
-  await page.getByRole("link", { name: "Explore the collection" }).click();
+  await page
+    .locator(".modernist-option")
+    .getByRole("link", { name: "Explore the collection" })
+    .click();
   await expect(page).toHaveURL(/shop\.html$/);
   await expect(page.getByRole("heading", { name: /The white/ })).toBeVisible();
   await page
@@ -151,8 +164,39 @@ test("homepage keeps the welcome separate from shopping and Our Story", async ({
     .click();
   await expect(page).toHaveURL(/studio\.html$/);
   await expect(
-    page.getByRole("heading", { name: /Less ordinary/ }),
+    page.getByRole("heading", { name: /Simple clothing/ }),
   ).toBeVisible();
+});
+
+test("Elsewhere contrasts modernist and postmodernist design directions", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", { name: "Find beauty in simplicity." }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Make the everyday unexpected." }),
+  ).toBeVisible();
+  await expect(page.locator(".modernist-option")).toHaveCSS(
+    "background-color",
+    "rgb(246, 243, 239)",
+  );
+  await expect(page.locator(".postmodernist-option")).toHaveCSS(
+    "background-color",
+    "rgb(169, 185, 160)",
+  );
+  await expect(page.locator(".postmodernist-option .button")).toHaveCSS(
+    "background-color",
+    "rgb(104, 69, 104)",
+  );
+  expect(
+    await page
+      .locator(".postmodernist-option")
+      .evaluate(
+        (element) => getComputedStyle(element, "::before").borderTopColor,
+      ),
+  ).toBe("rgb(216, 199, 219)");
 });
 
 test("Our Story is its own complete page and links to the shop", async ({
@@ -160,6 +204,18 @@ test("Our Story is its own complete page and links to the shop", async ({
 }) => {
   await page.goto("/studio.html");
   await expect(page.locator("#beliefs-title")).toBeVisible();
+  await expect(page.locator(".story-introduction")).toHaveCSS(
+    "background-color",
+    "rgb(169, 185, 160)",
+  );
+  await expect(page.locator(".story-quote")).toHaveCSS(
+    "background-color",
+    "rgb(51, 68, 51)",
+  );
+  await expect(page.locator(".story-cta .button")).toHaveCSS(
+    "background-color",
+    "rgb(51, 68, 51)",
+  );
   await expect(
     page.getByText("Welcome to Elsewhere", { exact: true }),
   ).toHaveCount(0);
@@ -168,10 +224,8 @@ test("Our Story is its own complete page and links to the shop", async ({
       /Sage brings a thoughtful point of view; Creator makes space for experimentation/,
     ),
   ).toHaveCount(0);
-  await expect(page.locator(".story-hero-image img")).toHaveAttribute(
-    "src",
-    "assets/elsewhere-story-portrait.png",
-  );
+  await expect(page.locator(".story-hero")).toHaveCount(0);
+  await expect(page.locator(".story-introduction")).toBeVisible();
   await expect(page.locator(".story-cta h2")).toHaveText(
     "Make the ordinary your own.",
   );
