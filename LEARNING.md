@@ -79,7 +79,8 @@ Both directions are being explored using the Elsewhere brand identity. Their fin
 The learner previously reported the following checks:
 
 1. **Automated checks:** Formatting, lint, server tests, and Chromium browser tests passed when `npm run check` was last reported successful.
-2. **Keyboard navigation:** The learner observed visible focus outlines, Tab navigation, size selection, and adding the shirt using Enter.
+2. **Keyboard navigation:** The learner observed visible focus outlines, Tab navigation, size selection,
+ and adding the shirt using Enter.
 3. **Mobile layout:** The learner observed the Shop page in an iPhone SE device view and reported no obvious layout problems.
 4. **First impression:** The learner noticed that the Shop image demonstrated a stylish way to accessorize a white shirt.
 
