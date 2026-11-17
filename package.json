@@ -5,7 +5,7 @@
   "type": "module",
   "description": "A small AI-guided brand studio for one plain white T-shirt.",
   "engines": {
-    "node": "^22.16.0 || >=24.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "start": "node server.mjs --dev",

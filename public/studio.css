@@ -506,3 +506,338 @@
     z-index: 1;
   }
 }
+
+/* Research, comparison, and local simulated-order controls. */
+body[data-approach="a"] .product-section {
+  grid-template-columns: 1fr 1.13fr;
+}
+
+body[data-approach="a"] .product-information {
+  order: -1;
+}
+
+.approach-switcher {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-size: 0.72rem;
+}
+
+.approach-switcher a {
+  padding: 0.4rem 0.65rem;
+  border: 1px solid var(--color-line);
+  color: var(--color-forest);
+  text-decoration: none;
+}
+
+.approach-switcher a:hover,
+.approach-switcher a[aria-current="page"] {
+  border-color: var(--color-forest);
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.quantity-control,
+.checkout-form label,
+.style-choice label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.quantity-control {
+  margin-top: 1.2rem;
+}
+
+.quantity-control input,
+.checkout-form input,
+.style-choice select {
+  width: 100%;
+  min-height: 2.8rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0;
+  padding: 0.65rem 0.75rem;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font: inherit;
+}
+
+.quantity-control input {
+  width: 5rem;
+}
+
+.storage-mode {
+  margin-block: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  border-left: 3px solid var(--color-forest);
+  background: var(--color-soft);
+  color: var(--color-ink);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.bag-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.bag-item .bag-item-detail {
+  margin: 0.35rem 0 0;
+}
+
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.9rem;
+  border-top: 1px solid var(--color-line);
+  font-size: 0.9rem;
+}
+
+.checkout-form {
+  display: grid;
+  gap: 0.55rem;
+  margin-block: 1rem 1.5rem;
+  max-width: 28rem;
+}
+
+.checkout-form #checkout-button {
+  width: 100%;
+  margin-top: 0.45rem;
+}
+
+.checkout-form .button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.order-confirmation {
+  padding: 0.9rem;
+  border-left: 3px solid var(--color-forest);
+  background: var(--color-sage);
+  line-height: 1.55;
+}
+
+.order-history {
+  margin-top: 1.4rem;
+  border-top: 1px solid var(--color-line);
+  padding-top: 1rem;
+}
+
+.order-history summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.order-history-list {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.2rem;
+  font-size: 0.75rem;
+}
+
+.order-history-list .order-history-detail {
+  margin: 0.2rem 0 0;
+  color: var(--color-muted);
+}
+
+.style-choice {
+  display: grid;
+  grid-template-columns: minmax(11rem, 0.5fr) minmax(12rem, 0.8fr) 1fr;
+  align-items: center;
+  gap: 0.8rem 1.2rem;
+  margin-block: 1.8rem;
+  padding: 1rem;
+  border: 1px solid var(--color-line);
+  background: var(--color-paper);
+}
+
+.style-choice select {
+  max-width: 18rem;
+}
+
+.style-recommendation {
+  margin: 0;
+  color: var(--color-forest);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.research-hero {
+  padding-block: clamp(2.5rem, 7vw, 6rem);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.research-hero h1 {
+  max-width: 14ch;
+  margin: 0.6rem 0 1rem;
+  font-size: clamp(3rem, 8vw, 6.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.07em;
+}
+
+.research-hero > p:last-child {
+  max-width: 44rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.research-section {
+  padding-block: 3.2rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.research-section h2 {
+  margin: 0.4rem 0 0.8rem;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+
+.research-page .research-section > p {
+  max-width: 48rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.research-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-line);
+}
+
+.research-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  background: var(--color-paper);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.research-table th,
+.research-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.research-table th {
+  background: var(--color-soft);
+  color: var(--color-forest);
+}
+
+.research-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.research-page .research-table td a {
+  color: var(--color-forest);
+  font-weight: 600;
+}
+
+.position-grid,
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.position-card,
+.story-card {
+  min-width: 0;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid var(--color-line);
+  background: var(--color-paper);
+}
+
+.position-card:first-child {
+  background: var(--color-sage);
+}
+
+.position-card:last-child {
+  background: var(--color-lavender);
+}
+
+.position-card h3,
+.story-card h3 {
+  margin: 0.35rem 0 0.7rem;
+  font-size: 1.35rem;
+}
+
+.research-page .position-card > p,
+.research-page .story-card > p {
+  line-height: 1.6;
+}
+
+.position-card .position-label,
+.story-card .story-label {
+  color: var(--color-forest);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.position-card .risk-note {
+  margin-top: 1.2rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-forest), transparent 65%);
+  font-size: 0.8rem;
+}
+
+.research-note {
+  padding: 1rem 1.2rem;
+  border-left: 3px solid var(--color-plum);
+  background: var(--color-soft);
+  line-height: 1.65;
+}
+
+.research-cta {
+  padding-block: 2rem 4rem;
+}
+
+@media (width <= 760px) {
+  body[data-approach="a"] .product-section {
+    grid-template-columns: 1fr;
+  }
+
+  .style-choice {
+    grid-template-columns: 1fr;
+  }
+
+  .style-choice select {
+    max-width: none;
+  }
+
+  .position-grid,
+  .story-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .approach-switcher {
+    gap: 0.5rem;
+  }
+
+  .approach-switcher > span {
+    flex-basis: 100%;
+  }
+
+  .main-nav {
+    gap: 0.75rem 1rem;
+  }
+
+  .nav-link,
+  .bag-link {
+    font-size: 0.68rem;
+  }
+}

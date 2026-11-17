@@ -15,13 +15,18 @@ import { createApp } from "../server.mjs";
 
 let app;
 let base;
+let testDirectory;
 before(async () => {
-  app = createApp();
+  testDirectory = await mkdtemp(path.join(tmpdir(), "elsewhere-server-tests-"));
+  app = createApp({ databasePath: path.join(testDirectory, "orders.sqlite") });
   app.listen(0, "127.0.0.1");
   await once(app, "listening");
   base = `http://127.0.0.1:${app.address().port}`;
 });
-after(() => new Promise((resolve) => app.close(resolve)));
+after(async () => {
+  await new Promise((resolve) => app.close(resolve));
+  await rm(testDirectory, { recursive: true, force: true });
+});
 
 test("serves the storefront and shared stylesheet with useful MIME types", async () => {
   const page = await fetch(base);
@@ -50,6 +55,66 @@ test("rejects malformed paths and POST requests", async () => {
   const response = await fetch(base, { method: "POST" });
   assert.equal(response.status, 405);
   assert.equal(response.headers.get("allow"), "GET, HEAD");
+});
+
+test("SQLite rejects invalid orders and restores a valid order after restart", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "elsewhere-order-test-"));
+  const databasePath = path.join(directory, "orders.sqlite");
+  const startServer = async () => {
+    const server = createApp({ databasePath });
+    server.listen(0, "127.0.0.1");
+    await once(server, "listening");
+    return {
+      server,
+      baseUrl: `http://127.0.0.1:${server.address().port}`,
+    };
+  };
+  let server;
+  try {
+    ({ server } = await startServer());
+    let baseUrl = `http://127.0.0.1:${server.address().port}`;
+    const health = await fetch(`${baseUrl}/api/health`);
+    assert.deepEqual(await health.json(), { storage: "sqlite" });
+
+    const invalid = await fetch(`${baseUrl}/api/orders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: "demo@example.test",
+        items: [{ size: "XXL", quantity: 2 }],
+      }),
+    });
+    assert.equal(invalid.status, 400);
+
+    const savedResponse = await fetch(`${baseUrl}/api/orders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: "demo@example.test",
+        items: [{ size: "M", quantity: 2 }],
+        totalCents: 1,
+      }),
+    });
+    assert.equal(savedResponse.status, 201);
+    const saved = await savedResponse.json();
+    assert.equal(saved.totalCents, 3000);
+    assert.doesNotMatch(JSON.stringify(saved), /demo@example\.test/);
+
+    await new Promise((resolve) => server.close(resolve));
+    ({ server, baseUrl } = await startServer());
+    const history = await fetch(`${baseUrl}/api/orders`);
+    const orders = await history.json();
+    assert.equal(orders.length, 1);
+    assert.equal(orders[0].reference, saved.reference);
+    assert.equal(orders[0].totalCents, 3000);
+    assert.deepEqual(orders[0].items, [
+      { size: "M", quantity: 2, unitPriceCents: 1500 },
+    ]);
+  } finally {
+    if (server?.listening)
+      await new Promise((resolve) => server.close(resolve));
+    await rm(directory, { recursive: true, force: true });
+  }
 });
 
 test("HEAD returns headers without downloading a page body", async () => {

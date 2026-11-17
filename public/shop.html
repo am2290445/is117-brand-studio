@@ -22,6 +22,7 @@
         <a class="nav-link" href="index.html">Elsewhere</a>
         <a class="nav-link" href="shop.html" aria-current="page">Shop</a>
         <a class="nav-link" href="studio.html">Our Story</a>
+        <a class="nav-link" href="research.html">Research &amp; Plan</a>
       </nav>
       <a class="bag-link" href="#demo-bag" aria-label="View shopping bag">
         Shopping bag <span id="bag-count" class="bag-count">0</span>
@@ -29,6 +30,18 @@
     </header>
 
     <main id="main">
+      <nav
+        class="approach-switcher wrap"
+        aria-label="Compare two shop approaches"
+      >
+        <span>Compare the same offer:</span>
+        <a href="shop.html?approach=a" data-approach-link="a">
+          A · Details first
+        </a>
+        <a href="shop.html?approach=b" data-approach-link="b">
+          B · Style first
+        </a>
+      </nav>
       <section
         id="shop"
         class="product-section wrap"
@@ -98,14 +111,42 @@
                 Please select a size before adding this item to your bag.
               </p>
             </fieldset>
+            <label class="quantity-control">
+              Quantity
+              <input
+                id="shirt-quantity"
+                name="quantity"
+                type="number"
+                min="1"
+                max="5"
+                value="1"
+                inputmode="numeric"
+                aria-describedby="quantity-help quantity-error"
+              />
+            </label>
+            <p id="quantity-help" class="field-help">
+              Choose 1 to 5 shirts in this size.
+            </p>
+            <p id="quantity-error" class="field-error" role="alert" hidden>
+              Choose a whole number from 1 to 5.
+            </p>
             <button class="button button-primary add-button" type="submit">
               Add to bag <span aria-hidden="true">↗</span>
             </button>
           </form>
 
           <p class="demo-disclaimer">
-            Store preview: product details and pricing are illustrative. Orders
-            and payments are not available.
+            Class project demo: the $15 price is illustrative. Local checkout
+            creates a simulated order only; it does not take payment or fulfill
+            a purchase.
+          </p>
+          <p
+            id="storage-mode"
+            class="storage-mode"
+            role="status"
+            aria-live="polite"
+          >
+            Checking local storage mode…
           </p>
 
           <dl class="product-facts">
@@ -148,10 +189,50 @@
           <button id="clear-bag" class="text-button" type="button" disabled>
             Clear bag
           </button>
-          <p class="field-help">
-            Your selections are temporary and reset when you leave or reload
-            this page. Checkout is not available.
-          </p>
+          <div class="order-total" aria-live="polite">
+            <span>Demo total</span>
+            <strong id="bag-total">$0.00</strong>
+          </div>
+          <form id="checkout-form" class="checkout-form">
+            <label for="demo-email">Demo email</label>
+            <input
+              id="demo-email"
+              name="email"
+              type="email"
+              value="demo@example.test"
+              maxlength="120"
+              autocomplete="off"
+              required
+              aria-describedby="checkout-help checkout-error"
+            />
+            <p id="checkout-help" class="field-help">
+              Use synthetic information. This email is checked but never saved.
+            </p>
+            <p id="checkout-error" class="field-error" role="alert" hidden></p>
+            <button
+              id="checkout-button"
+              class="button button-primary"
+              type="submit"
+              disabled
+            >
+              Complete simulated checkout <span aria-hidden="true">↗</span>
+            </button>
+          </form>
+          <p
+            id="order-confirmation"
+            class="order-confirmation"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></p>
+          <details class="order-history">
+            <summary>Demo order history</summary>
+            <p class="field-help">
+              Local server mode reads SQLite. Public preview mode reads this
+              browser only.
+            </p>
+            <ol id="order-history-list" class="order-history-list"></ol>
+          </details>
         </div>
       </section>
 
@@ -165,6 +246,22 @@
             Try a few ideas with pieces you already own. Take what feels like
             you and leave the rest.
           </p>
+        </div>
+        <div class="style-choice">
+          <label for="style-choice">What style mood are you exploring?</label>
+          <select id="style-choice" name="style-choice">
+            <option value="">Choose if you like (optional)</option>
+            <option value="relaxed">Relaxed</option>
+            <option value="layered">Layered</option>
+            <option value="color">A little color</option>
+          </select>
+          <p
+            id="style-recommendation"
+            class="style-recommendation"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></p>
         </div>
         <ol class="style-prompt-grid">
           <li class="style-prompt">

@@ -9,10 +9,10 @@ This document records the agreed brand decisions, project requirements, implemen
 ## 1. Current Project Stage
 
 - **Brand:** Elsewhere
-- **Current feature:** BRAND-003 — paired Modernist and Postmodernist hero explorations
-- **BRAND-001 status:** Implementation merged into `main`
-- **Current status:** Brand direction supplied; remaining assignment evidence is in progress.
-- **Next goal:** Complete and compare the paired hero designs on the Welcome page, then review the website and supporting documentation.
+- **Current work:** Research and Plan revision plus a local simulated-checkout/SQLite build.
+- **Earlier work:** BRAND-001 was merged into `main`; the learner's original direction remains the foundation.
+- **Current status:** Research, Plan, checkout, and SQLite work are being added locally. Peer review and GitHub publication are still pending.
+- **Next goal:** Run the checkout/restart flow, inspect the two layouts, and update this record with real verification evidence.
 
 ---
 
@@ -53,13 +53,13 @@ The existing storefront includes:
 - A temporary demo shopping bag.
 - Optional styling prompts.
 
-The demo bag does not process real orders or payments.
+The public GitHub Pages preview stores demo history in that browser only. The local Node server provides a simulated checkout backed by SQLite.
 
 The project does not include:
 
-- Real checkout or payment processing.
+- Real orders, checkout, payment processing, or fulfillment.
 - Customer accounts.
-- Persistent shopping-bag storage.
+- Persistent shopping-bag storage. The local SQLite database stores completed demo order records only.
 - Verified customer reviews or sales.
 - Claims about materials, manufacturing, sustainability, fit, delivery, or scarcity.
 
@@ -385,9 +385,13 @@ The prompt wording was drafted with AI assistance and should be reviewed before 
 
 ### Second Application
 
-**Status:** Not chosen yet.
+**Principle:** Commitment and Consistency.
 
-A second principle should not be recorded as implemented until an actual feature and its visitor benefit have been agreed upon.
+**Application:** An optional style-mood choice on the Shop page. Choosing “Relaxed,” “Layered,” or “A little color” reveals one matching free styling prompt.
+
+**Visitor benefit:** The visitor gets an idea that follows their own style interest, using clothes they already own. The choice can be changed or skipped and never creates purchase pressure.
+
+**Decision record:** On November 17, 2026, the learner selected the optional style choice → matching free tip proposal and asked that the reason be filled from the existing project information. The connection is an AI-assisted inference from the existing audience concern that a plain tee may seem too basic and the brand goal of personal expression; this is not recorded as a direct learner quote.
 
 ---
 
@@ -401,6 +405,7 @@ The project uses:
 - Node.js
 - Automated server tests
 - Chromium browser tests
+- Node.js 24+ and the built-in `node:sqlite` module for the local demo database
 
 ### Shop Functionality
 
@@ -413,6 +418,18 @@ Visitors should be able to:
 5. Clear the demo bag.
 
 The bag is temporary and does not save information permanently.
+
+### Local Simulated Checkout and SQLite
+
+On the local server only:
+
+1. The visitor reviews items, sizes, quantities, and the demo total.
+2. The visitor submits a synthetic email, which is validated but never saved.
+3. The server validates sizes and quantities again and calculates the total from its product price record.
+4. SQLite stores a demo reference, items, size, quantity, unit price, total, and timestamp.
+5. Order history can be read again after stopping and restarting the server with the same database file.
+
+GitHub Pages has no backend. It uses browser-local storage for a clearly labeled preview; that mode does not satisfy the SQLite requirement by itself. No payment information, real email, address, or account data is stored. The local server is a teaching demo and must not be deployed as a public service.
 
 ### Responsive Design
 
@@ -480,27 +497,30 @@ See `LEARNING.md` for the fuller record of learner explanations and assistance.
 
 Important project files include:
 
-| File                           | Purpose                                         |
-| ------------------------------ | ----------------------------------------------- |
-| `public/index.html`            | Welcome page and design choices                 |
-| `public/shop.html`             | Shop page                                       |
-| `public/studio.html`           | Our Story page                                  |
-| `public/styleguide.html`       | Live Style Guide                                |
-| `public/styles.css`            | Shared website styling and design tokens        |
-| `public/studio.css`            | Additional brand and design-exploration styling |
-| `public/shop.js`               | Shopping bag functionality                      |
-| `public/styleguide.js`         | Live Style Guide token information              |
-| `public/assets/wordmark.svg`   | Elsewhere logo                                  |
-| `tests/server.test.js`         | Server tests                                    |
-| `tests/browser/studio.spec.js` | Browser tests                                   |
-| `README.md`                    | Project overview and setup instructions         |
-| `LEARNING.md`                  | Learner explanations and evidence               |
+| File                           | Purpose                                                       |
+| ------------------------------ | ------------------------------------------------------------- |
+| `public/index.html`            | Welcome page and design choices                               |
+| `public/shop.html`             | Shop page                                                     |
+| `public/studio.html`           | Our Story page                                                |
+| `public/styleguide.html`       | Live Style Guide                                              |
+| `public/styles.css`            | Shared website styling and design tokens                      |
+| `public/studio.css`            | Additional brand and design-exploration styling               |
+| `public/shop.js`               | Shopping bag functionality                                    |
+| `public/research.html`         | Clothing-site comparisons, two positions, and user-story plan |
+| `order-store.mjs`              | Local SQLite schema and simulated order storage               |
+| `server.mjs`                   | Static pages plus loopback-only SQLite API                    |
+| `public/styleguide.js`         | Live Style Guide token information                            |
+| `public/assets/wordmark.svg`   | Elsewhere logo                                                |
+| `tests/server.test.js`         | Server tests                                                  |
+| `tests/browser/studio.spec.js` | Browser tests                                                 |
+| `README.md`                    | Project overview and setup instructions                       |
+| `LEARNING.md`                  | Learner explanations and evidence                             |
 
 ---
 
 ## 13. GitHub Tracking
 
-**Repository:** `am2290445/my-brand-studio`
+**Repository:** `am2290445/is117-brand-studio` (the local folder is named `my-brand-studio`)
 
 **BRAND-001 branch:** `feature/brand-001-elsewhere`
 
@@ -517,6 +537,7 @@ Important project files include:
 | BRAND-004 | Logo review and live Style Guide consistency                    |
 | BRAND-005 | Two truthful, useful ethical persuasion applications            |
 | BRAND-006 | Final checks, learner review, evidence, and handoff             |
+| BRAND-007 | Clothing research, two-position plan, and local SQLite demo     |
 
 The original BRAND-001 issue was deleted at the learner's request.
 
@@ -538,6 +559,9 @@ The project is ready for final review when:
 - Keyboard navigation and important shopping-bag controls have been checked.
 - Automated checks pass.
 - The learner records actual observations and explains at least one decision to keep or revise.
+- Three clothing-site observations include source links, access date, and implications.
+- Two positioning alternatives and the same-task A/B order comparison are documented.
+- The local simulated checkout saves and restores an order through SQLite after a server restart.
 - README, SPEC, and LEARNING accurately describe the final project.
 
 Automated checks and AI-generated explanations are supporting evidence, not proof of independent learner understanding.
@@ -551,3 +575,56 @@ No additional feature is selected yet.
 After completing the current assignment requirements, a future feature could explore a brand story, a supported fit guide, or additional demo shopping-bag behavior.
 
 Any future feature should have an agreed scope and a new specification before implementation.
+
+## 16. Clothing-Site Research
+
+**Research date:** November 16, 2026. Pages were reviewed on that date. These are observations of public page content, not usability tests, customer interviews, or proof of demand.
+
+| Source                                                                                                 | Observation                                                                                                    | Implication for Elsewhere                                                                                                                  |
+| ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Everlane — Women's Tees & T-Shirts](https://www.everlane.com/collections/womens-tees)                 | The collection describes fabrics and shapes and gives examples of dressing a tee up or down with other pieces. | Include a few optional styling ideas so a young creative can picture a personal look. Use only product facts verified for Elsewhere.       |
+| [Gap — Classic T-Shirt](https://www.gap.com/browse/product.do?pid=4407750010003&vid=1)                 | The product page shows the white color, fit, size options, price, and Add to Bag near its product details.     | Keep Elsewhere's illustrative $15 price, size selector, and demo action easy to find. State clearly that checkout is simulated.            |
+| [UNIQLO — AIRism T-Shirt](https://www.uniqlo.com/us/en/products/E482514-000/00?colorDisplayCode=COL69) | The page connects the shirt to specific comfort features and lists color, size, material, and care details.    | Useful facts make a basic easier to compare. Do not copy claims about Elsewhere's fabric, performance, or sustainability without evidence. |
+
+The pages suggest useful presentation patterns, but they do not show which Elsewhere position visitors prefer or prove customer demand.
+
+## 17. Revised Plan: Two Positions and One Small Checkout
+
+### Audience and Brand Promise
+
+The primary audience remains young creatives who use fashion to show their personality. They may assume a plain white T-shirt is too ordinary. The secondary audience remains people who value simplicity. These are unvalidated audience hypotheses. Keep the agreed promise, “Less ordinary. More you.” slogan, Sage + Creator archetypes, Postmodernist direction, and green/plum/lavender/warm-neutral palette.
+
+### Two Alternative Positions
+
+Both positions use the same audience, white T-shirt, $15 illustrative price, product facts, and core brand promise. They differ in which part of the experience leads.
+
+1. **A — The Thoughtful Everyday Essential:** “A simple piece, made yours.” Put verified product facts, size, quantity, and price first, then styling inspiration. Sage clarity leads; Creator expression stays in the experience. Risk: it may feel too ordinary if the expressive visual identity is hidden.
+2. **B — The Everyday Canvas:** “Less ordinary. More you.” Lead with the shirt image and optional styling ideas, then show the same product facts and controls. Creator expression leads; Sage keeps the path clear. This carries forward the already selected Postmodernist direction. Risk: expressive visuals may obscure price or size if overdone.
+
+The Welcome page presents both using the same headline, supporting sentence, and action. The Shop page provides the working A/B routes `shop.html?approach=a` (details first) and `shop.html?approach=b` (style first); only the order changes. The offer and content stay steady.
+
+### User Stories, Features, and Observable Checks
+
+| ID  | User story                                                                                                         | Essential feature                                                                                  | Observable check                                                                                                                                    |
+| --- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| S1  | As a young creative, I want to compare two presentations of the same shirt so I can see how it could fit my style. | A and B routes with the same product, copy, price, image, sizes, and action.                       | Switch A/B and confirm the content and offer stay identical while the product-image/details order changes. Check both at narrow and desktop widths. |
+| S2  | As a shopper, I want to choose a size and quantity and see a clear demo total.                                     | Size selector, quantity from 1–5 per size, bag, and total.                                         | Choose M and quantity 2; confirm the bag shows M × 2 and $30. Missing size or invalid quantity must not add anything.                               |
+| S3  | As a visitor, I want to review a simulated order and get a reference so I know the demo finished.                  | Local checkout, synthetic email validation, server-side price calculation, confirmation reference. | Submit `demo@example.test`; confirm $30 and a reference, and confirm no payment is requested and the email is not stored.                           |
+| S4  | As the project owner, I want SQLite to preserve a demo order so I can find it after restart.                       | Local Node server, SQLite order tables, and order-history display.                                 | Save a demo order, stop and restart using the same database path, then find the same reference, size, quantity, and total.                          |
+
+### Honest Persuasion
+
+- **Reciprocity:** Free styling suggestions visitors can use with clothes they already own.
+- **Commitment and Consistency:** An optional, changeable style-mood choice reveals a matching free suggestion. Skipping it does not block shopping or checkout.
+
+Neither feature makes claims about sales, reviews, scarcity, or proven persuasion effects.
+
+### SQLite and Preview Limits
+
+In local mode, the server checks the synthetic email but does not save it, validates each size and quantity, recalculates the total using the server's $15 product price, and stores demo order details in SQLite. The database path is printed at startup and can be set with `IS117_DEMO_DB`; the port can be set with `IS117_DEMO_PORT`. Restarting with the same database path should restore order history.
+
+GitHub Pages cannot run Node or SQLite. It uses browser-local storage and labels that mode separately. Neither mode takes payment or fulfills an order. The local server is a class demonstration and is not a production e-commerce backend.
+
+### Peer Review and Current Gaps
+
+The in-class peer explanation, useful question, and resulting revision are **pending** until they actually happen. Do not invent a classmate response. The repo currently has no open issue for this revision; the matching GitHub issue and public update remain pending. Record only checks and browser observations that have actually occurred.

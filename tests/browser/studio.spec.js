@@ -42,7 +42,9 @@ test("positive: a shopper can choose sizes, add items, and empty the demo bag", 
   await page.locator('input[name="size"][value="M"]').check();
   await page.getByRole("button", { name: "Add to bag", exact: true }).click();
   await expect(page.locator("#bag-count")).toHaveText("1");
-  await expect(page.locator("#bag-items")).toContainText("Size: M | $15.00");
+  await expect(page.locator("#bag-items")).toContainText(
+    "Size: M · Quantity: 1 · $15.00",
+  );
   await page.locator('input[name="size"][value="L"]').check();
   await page.getByRole("button", { name: "Add to bag", exact: true }).click();
   await expect(page.locator("#bag-count")).toHaveText("2");
@@ -70,7 +72,78 @@ test("positive: removing one item keeps the other bag item", async ({
 
   await expect(page.locator("#bag-count")).toHaveText("1");
   await expect(page.locator("#bag-items .bag-item")).toHaveCount(1);
-  await expect(page.locator("#bag-items")).toContainText("Size: L | $15.00");
+  await expect(page.locator("#bag-items")).toContainText(
+    "Size: L · Quantity: 1 · $15.00",
+  );
+});
+
+test("a local demo checkout saves its server-calculated order in SQLite", async ({
+  page,
+}) => {
+  await page.goto("/shop.html?approach=b");
+  await expect(page.locator("#storage-mode")).toContainText("stored in SQLite");
+  await page.locator('input[name="size"][value="M"]').check();
+  await page.locator("#shirt-quantity").fill("2");
+  await page.getByRole("button", { name: "Add to bag", exact: true }).click();
+  await expect(page.locator("#bag-items")).toContainText(
+    "Size: M · Quantity: 2",
+  );
+  await expect(page.locator("#bag-total")).toHaveText("$30.00");
+
+  await page
+    .getByRole("button", { name: "Complete simulated checkout" })
+    .click();
+  await expect(page.locator("#order-confirmation")).toContainText(
+    "saved in the local SQLite database",
+  );
+  const confirmation = await page.locator("#order-confirmation").textContent();
+  const reference = confirmation.match(/DEMO-[A-Z0-9]{8}/)?.[0];
+  expect(reference).toBeTruthy();
+
+  await page.getByText("Demo order history").click();
+  await expect(page.locator("#order-history-list")).toContainText(reference);
+  await page.reload();
+  await page.getByText("Demo order history").click();
+  await expect(page.locator("#order-history-list")).toContainText(reference);
+});
+
+test("the two shop approaches keep the offer steady and change the order", async ({
+  page,
+}) => {
+  await page.goto("/shop.html?approach=a");
+  await expect(page.locator("body")).toHaveAttribute("data-approach", "a");
+  await expect(page.locator('[data-approach-link="a"]')).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
+  await expect(page.locator("#product-title")).toContainText("The white");
+  await expect(page.locator(".price")).toContainText("$15");
+  await expect(page.locator(".add-button")).toContainText("Add to bag");
+  expect(
+    await page
+      .locator(".product-information")
+      .evaluate((element) => getComputedStyle(element).order),
+  ).toBe("-1");
+
+  await page.goto("/shop.html?approach=b");
+  await expect(page.locator("body")).toHaveAttribute("data-approach", "b");
+  await expect(page.locator(".price")).toContainText("$15");
+  expect(
+    await page
+      .locator(".product-information")
+      .evaluate((element) => getComputedStyle(element).order),
+  ).toBe("0");
+});
+
+test("an optional style choice gives a matching free prompt", async ({
+  page,
+}) => {
+  await page.goto("/shop.html");
+  await expect(page.locator("#style-recommendation")).toBeHidden();
+  await page.locator("#style-choice").selectOption("layered");
+  await expect(page.locator("#style-recommendation")).toContainText(
+    "Add an open shirt, cardigan, or jacket you already own.",
+  );
 });
 
 test("Shop offers optional styling prompts using clothes visitors already own", async ({
@@ -123,8 +196,14 @@ test("keyboard: the skip link reaches main and the size controls work without a 
     .evaluateAll((anchors) =>
       anchors.map((anchor) => anchor.textContent.trim()),
     );
-  expect(navLabels).toEqual(["Elsewhere", "Shop", "Our Story"]);
+  expect(navLabels).toEqual([
+    "Elsewhere",
+    "Shop",
+    "Our Story",
+    "Research & Plan",
+  ]);
   await expect(page.locator(".shirt-image")).toBeVisible();
+  await page.locator("#shirt-quantity").focus();
   await page.keyboard.press("Tab");
   await expect(
     page.getByRole("button", { name: "Add to bag", exact: true }),
@@ -154,9 +233,9 @@ test("homepage keeps the welcome separate from shopping and Our Story", async ({
   );
   await page
     .locator(".modernist-option")
-    .getByRole("link", { name: "Explore the collection" })
+    .getByRole("link", { name: "Explore the T-shirt" })
     .click();
-  await expect(page).toHaveURL(/shop\.html$/);
+  await expect(page).toHaveURL(/shop\.html\?approach=a$/);
   await expect(page.getByRole("heading", { name: /The white/ })).toBeVisible();
   await page
     .locator(".main-nav")
@@ -173,11 +252,14 @@ test("Elsewhere contrasts modernist and postmodernist design directions", async 
 }) => {
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "Find beauty in simplicity." }),
-  ).toBeVisible();
+    page.getByRole("heading", { name: "Less ordinary. More you." }),
+  ).toHaveCount(3);
   await expect(
-    page.getByRole("heading", { name: "Make the everyday unexpected." }),
-  ).toBeVisible();
+    page.locator(".modernist-option .modernist-label"),
+  ).toContainText("APPROACH A · DETAILS FIRST");
+  await expect(
+    page.locator(".postmodernist-option .postmodernist-label"),
+  ).toContainText("APPROACH B · STYLE FIRST");
   await expect(page.locator(".modernist-option")).toHaveCSS(
     "background-color",
     "rgb(246, 243, 239)",
@@ -233,7 +315,13 @@ test("Our Story is its own complete page and links to the shop", async ({
   await expect(page).toHaveURL(/shop\.html$/);
 });
 
-for (const route of ["/", "/shop.html", "/studio.html", "/styleguide.html"]) {
+for (const route of [
+  "/",
+  "/shop.html",
+  "/studio.html",
+  "/styleguide.html",
+  "/research.html",
+]) {
   test(`page integrity and automated accessibility: ${route}`, async ({
     page,
   }) => {
@@ -255,7 +343,12 @@ for (const route of ["/", "/shop.html", "/studio.html", "/styleguide.html"]) {
       .evaluateAll((anchors) =>
         anchors.map((anchor) => anchor.textContent.trim()),
       );
-    expect(navLabels).toEqual(["Elsewhere", "Shop", "Our Story"]);
+    expect(navLabels).toEqual([
+      "Elsewhere",
+      "Shop",
+      "Our Story",
+      "Research & Plan",
+    ]);
     const brokenImages = await page
       .locator("img")
       .evaluateAll((images) =>
